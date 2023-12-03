@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 
 function App() {
   const [response, setResponse] = useState('');
-
-  const baseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3001' : 'https://my-production-url';
+  const devOrProd = 'dev'
+//  const devOrProd = 'prod'
+  console.log('dev or prod:', devOrProd);
+  const baseUrl = devOrProd === 'dev' ? 'http://localhost:3001' : 'https://my-production-url';
 
   const fetchData = async () => {
     try {

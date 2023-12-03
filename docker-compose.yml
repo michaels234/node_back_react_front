@@ -3,14 +3,8 @@ services:
   backend:
     build: ./backend
     ports:
-      - "3000:3000"
-    depends_on:
-      - dynamodb
-    environment:
-      - NODE_ENV=development
+      - "3001:3001"
   frontend:
     build: ./frontend
     ports:
       - "80:80"
-    environment:
-      - NODE_ENV=development

@@ -7,11 +7,11 @@ const AWS = require('aws-sdk');
 const app = express();
 app.use(cors());
 const port = 3001;
-//const isDevelopment = process.env.NODE_ENV === 'development';
-const isDevelopment = true;
+const devOrProd = 'dev';
+//const devOrProd = 'prod';
 
 // Set up AWS DynamoDB configuration
-if (isDevelopment) {
+if (devOrProd === 'dev') {
     // DynamoDB Local configuration for development
     AWS.config.update({
         region: 'localhost',
@@ -21,10 +21,9 @@ if (isDevelopment) {
     });
 } else {
     // Real DynamoDB configuration for production
-    // AWS.config.update({
-    //   region: 'your-production-region',
-    //   // Add any other production-specific configurations
-    // });
+    AWS.config.update({
+        region: 'us-east-1',
+    });
 }
 
 const dynamoDB = new AWS.DynamoDB.DocumentClient();
@@ -34,9 +33,10 @@ app.get('/api/data', async(req, res) => {
     try {
         // initial data to be inserted into DynamoDB
         const params = {
-            TableName: 'TestTable',
+            TableName: 'node_react_hash_map',
             Item: {
-                exampleKey: 'exampleValue',
+                key: 'keyvalue',
+                other: 'othervalue',
             },
         };
 
@@ -45,13 +45,13 @@ app.get('/api/data', async(req, res) => {
 
         // Retrieve data from DynamoDB
         const getResult = await dynamoDB.get({
-            TableName: 'TestTable',
+            TableName: 'node_react_hash_map',
             Key: {
-                exampleKey: 'exampleValue',
+                key: 'keyvalue',
             },
         }).promise();
 
-        res.json({ message: getResult.Item ? getResult.Item.exampleKey : 'No data found' });
+        res.json({ message: getResult.Item ? getResult.Item.key : 'No data found' });
     } catch (error) {
         console.error('Error:', error);
         res.status(500).json({ error: 'Internal Server Error' });
