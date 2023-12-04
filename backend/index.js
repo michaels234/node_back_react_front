@@ -20,7 +20,7 @@ const devOrProd = 'dev';
 if (devOrProd === 'dev') { // use dynamodb local for development
     AWS.config.update({
         region: 'localhost',
-        endpoint: 'http://localhost:8000', // DynamoDB Local endpoint
+        endpoint: 'http://dynamodb:8000', // DynamoDB Local endpoint
         accessKeyId: 'xxxx',
         secretAccessKey: 'xxxx',
     });

@@ -4,7 +4,25 @@ services:
     build: ./backend
     ports:
       - "3001:3001"
+    networks:
+      - mynetwork
   frontend:
     build: ./frontend
     ports:
       - "80:80"
+    networks:
+      - mynetwork
+  dynamodb:
+    image: amazon/dynamodb-local
+    ports:
+      - "8000:8000"
+    networks:
+      - mynetwork
+    volumes:
+      - dynamodb_data:/home/dynamodblocal/data
+
+networks:
+  mynetwork:
+
+volumes:
+  dynamodb_data:

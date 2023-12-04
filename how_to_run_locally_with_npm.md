@@ -13,7 +13,7 @@ npm run start
 
 
 # for frontend
-cd backend
+cd frontend
 
 npm install
 
