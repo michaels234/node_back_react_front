@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 
 function App() {
   const [response, setResponse] = useState('');
-  const devOrProd = 'dev'
-//  const devOrProd = 'prod'
-  console.log('dev or prod:', devOrProd);
-  const baseUrl = devOrProd === 'dev' ? 'http://localhost:3001' : 'https://my-production-url';
+
+  // Change this like an environment variable
+  const env = 'dev'
+//  const env = 'prod'
+  console.log('dev or prod:', env);
+
+  const baseUrl = env === 'dev' ? 'http://localhost:3001' : 'https://my-production-url';
 
   async function parseSQL() {
 	const sqlInput = document.getElementById('sqlInput').value;

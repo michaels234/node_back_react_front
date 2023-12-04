@@ -13,14 +13,22 @@ const parser = new Parser();
 const port = 3001;
 
 // change this depending on running in development or production environment
-const devOrProd = 'dev';
-//const devOrProd = 'prod';
+//const env = 'docker';
+const env = 'npm';
+//const env = 'prod';
 
 // setup dynamodb connection
-if (devOrProd === 'dev') { // use dynamodb local for development
+if (env === 'docker') { // use dynamodb local for docker
     AWS.config.update({
         region: 'localhost',
-        endpoint: 'http://dynamodb:8000', // DynamoDB Local endpoint
+        endpoint: 'http://dynamodb:8000', // DynamoDB Local endpoint for docker
+        accessKeyId: 'xxxx',
+        secretAccessKey: 'xxxx',
+    });
+} else if (env === 'npm') { // use dynamodb local for npm
+    AWS.config.update({
+        region: 'localhost',
+        endpoint: 'http://localhost:8000', // DynamoDB Local endpoint for npm
         accessKeyId: 'xxxx',
         secretAccessKey: 'xxxx',
     });
